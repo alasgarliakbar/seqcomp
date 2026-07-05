@@ -1,17 +1,4 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # seqcomp
-
-<!-- badges: start -->
-
-[![CRAN
-status](https://www.r-pkg.org/badges/version/seqcomp)](https://cran.r-project.org/package=seqcomp)
-[![R-CMD-check](https://github.com/alasgarliakbar/seqcomp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/alasgarliakbar/seqcomp/actions/workflows/R-CMD-check.yaml)
-[![pkgdown](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://alasgarliakbar.github.io/seqcomp/)
-[![License:
-MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<!-- badges: end -->
 
 `seqcomp` is an R package for anytime-valid sequential comparison of
 probabilistic forecasters, implementing the framework of Choe and Ramdas
@@ -59,9 +46,10 @@ pak::pak("alasgarliakbar/seqcomp")
 
 ## Basic example
 
-`compare_forecasts()` is the main entry point. It computes pointwise
-scores, the running mean score difference, a confidence sequence, and
-two one-sided e-processes in a single call.
+[`compare_forecasts()`](https://alasgarliakbar.github.io/seqcomp/reference/compare_forecasts.md)
+is the main entry point. It computes pointwise scores, the running mean
+score difference, a confidence sequence, and two one-sided e-processes
+in a single call.
 
 ``` r
 library(seqcomp)
@@ -92,8 +80,8 @@ tail(out[, c("t", "estimate", "lower", "upper", "e_pq", "e_qp")])
 ```
 
 The column `estimate` is the running mean score difference
-$\hat{\Delta}_t =
-\frac{1}{t}\sum_{i=1}^{t}(S(p_i,y_i)-S(q_i,y_i))$. Positive values
+$`\hat{\Delta}_t =
+\frac{1}{t}\sum_{i=1}^{t}(S(p_i,y_i)-S(q_i,y_i))`$. Positive values
 favour `p`; negative values favour `q`. The columns `lower` and `upper`
 are the empirical Bernstein confidence sequence bounds. The columns
 `e_pq` and `e_qp` are the two one-sided e-process values; the two-sided
@@ -119,23 +107,26 @@ legend(
 )
 ```
 
-<img src="man/figures/README-plot-1.png" alt="" width="100%" />
+![](reference/figures/README-plot-1.png)
 
 ## Scale parameter conventions
 
 Two scale conventions are used throughout, following Choe and Ramdas
 (2024) exactly. Theorem 1 (Hoeffding CS) requires
-$|\hat{\delta}_i| \leq c$, so `c = 1` is used for Brier or spherical
-score differences in $[-1, 1]$. Theorems 2 and 3 (empirical Bernstein CS
-and e-process) require $|\hat{\delta}_i| \leq c/2$, so `c = 2` is used
-for the same score differences. `compare_forecasts()` applies these
-conventions automatically. They differ from the Python `comparecast`
-package, which applies the Theorem 2/3 convention throughout.
+$`|\hat{\delta}_i| \leq c`$, so `c = 1` is used for Brier or spherical
+score differences in $`[-1, 1]`$. Theorems 2 and 3 (empirical Bernstein
+CS and e-process) require $`|\hat{\delta}_i| \leq c/2`$, so `c = 2` is
+used for the same score differences.
+[`compare_forecasts()`](https://alasgarliakbar.github.io/seqcomp/reference/compare_forecasts.md)
+applies these conventions automatically. They differ from the Python
+`comparecast` package, which applies the Theorem 2/3 convention
+throughout.
 
 ## Lower-level interface
 
-`compare_forecasts()` is a convenience wrapper. The underlying functions
-can be called directly for finer control:
+[`compare_forecasts()`](https://alasgarliakbar.github.io/seqcomp/reference/compare_forecasts.md)
+is a convenience wrapper. The underlying functions can be called
+directly for finer control:
 
 ``` r
 scores_p <- brier_score(p, y)

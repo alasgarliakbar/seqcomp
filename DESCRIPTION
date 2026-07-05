@@ -11,7 +11,8 @@ Description: Implements tools for sequential comparison of probabilistic
     confidence sequences, e-processes, Winkler-score comparisons, lag handling,
     and predictable-bound e-processes.
 License: MIT + file LICENSE
-URL: https://github.com/alasgarliakbar/seqcomp
+URL: https://github.com/alasgarliakbar/seqcomp,
+    https://alasgarliakbar.github.io/seqcomp/
 BugReports: https://github.com/alasgarliakbar/seqcomp/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

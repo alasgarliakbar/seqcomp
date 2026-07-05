@@ -1,0 +1,61 @@
+url: https://alasgarliakbar.github.io/seqcomp
+
+template:
+  bootstrap: 5
+
+home:
+  title: seqcomp
+  description: Anytime-valid sequential comparison of probabilistic forecasters
+
+reference:
+  - title: Main workflow
+    contents:
+      - compare_forecasts
+
+  - title: Confidence sequences
+    contents:
+      - cs_hoeffding
+      - cs_bernstein
+      - cs_asymptotic
+
+  - title: E-processes
+    contents:
+      - eprocess
+      - eprocess_lag
+      - eprocess_predictable
+      - eprocess_rejections
+      - predictable_rejections
+
+  - title: Scoring rules
+    contents:
+      - brier_score
+      - log_score
+      - spherical_score
+      - winkler_score
+      - crps_empirical
+      - crps_normal
+      - crps_std
+      - tick_loss
+      - qlike_score
+
+  - title: Boundaries
+    contents:
+      - cm_boundary
+      - ge_boundary
+      - ps_boundary
+      - rho_from_vopt
+
+  - title: Winkler procedures
+    contents:
+      - winkler_compare
+      - winkler_cs
+      - winkler_etest
+
+  - title: Utilities
+    contents:
+      - score_bounds
+      - score_diff_scales
+      - split_streams
+      - unroll_stream
+      - calibrate_p_to_e
+      - seqcomp-package

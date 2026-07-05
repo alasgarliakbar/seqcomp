@@ -16,11 +16,14 @@ knitr::opts_chunk$set(
 # seqcomp
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/seqcomp)](https://cran.r-project.org/package=seqcomp)
 [![R-CMD-check](https://github.com/alasgarliakbar/seqcomp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/alasgarliakbar/seqcomp/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://alasgarliakbar.github.io/seqcomp/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-`seqcomp` implements anytime-valid tools for the sequential comparison of
-probabilistic forecasters, following the framework of Choe and Ramdas (2024).
+`seqcomp` is an R package for anytime-valid sequential comparison of 
+probabilistic forecasters, implementing the framework of Choe and Ramdas (2024).
 Given two competing forecasters and a sequence of binary or categorical
 outcomes, the package constructs confidence sequences and e-processes for the
 running mean score difference that are valid simultaneously at every point in
@@ -49,6 +52,12 @@ the `confseq` package.
 
 ## Installation
 
+Available on CRAN:
+
+```r
+install.packages("seqcomp")
+```
+
 The development version can be installed from GitHub:
 
 ```r
@@ -56,11 +65,6 @@ The development version can be installed from GitHub:
 pak::pak("alasgarliakbar/seqcomp")
 ```
 
-After CRAN acceptance:
-
-```r
-install.packages("seqcomp")
-```
 
 ## Basic example
 
@@ -90,7 +94,8 @@ tail(out[, c("t", "estimate", "lower", "upper", "e_pq", "e_qp")])
 ```
 
 The column `estimate` is the running mean score difference
-$\hat{\Delta}_t = t^{-1}\sum_{i=1}^t (S(p_i, y_i) - S(q_i, y_i))$.
+$\hat{\Delta}_t =
+\frac{1}{t}\sum_{i=1}^{t}(S(p_i,y_i)-S(q_i,y_i))$.
 Positive values favour `p`; negative values favour `q`. The columns `lower`
 and `upper` are the empirical Bernstein confidence sequence bounds. The
 columns `e_pq` and `e_qp` are the two one-sided e-process values; the
