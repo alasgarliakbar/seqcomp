@@ -1,15 +1,21 @@
 Package: seqcomp
 Type: Package
 Title: Sequential Comparison of Probabilistic Forecasts
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person(
     "Akbar", "Alasgarli",
     email = "alasgarliakbar@gmail.com",
     role = c("aut", "cre"))
-Description: Implements tools for sequential comparison of probabilistic
-    forecasts, including binary and categorical scoring rules, anytime-valid
-    confidence sequences, e-processes, Winkler-score comparisons, lag handling,
-    and predictable-bound e-processes.
+Description: Implements tools for the anytime-valid sequential comparison of
+    two or more probabilistic forecasters. Provides binary, categorical, and
+    quantile scoring rules, together with finite-sample confidence sequences
+    and e-processes following Choe and Ramdas (2024)
+    <doi:10.1287/opre.2021.0792>. Extends to multi-model evaluation via
+    Sequential Model Confidence Sets, following Arnold, Gavrilopoulos, Schulz,
+    and Ziegel (2026) <doi:10.1093/jrsssb/qkag066>, using closure principles,
+    joint confidence sequences, and accelerated closed-testing. Also includes
+    Winkler-score comparisons, lag handling, and predictable-bound betting
+    e-processes.
 License: MIT + file LICENSE
 URL: https://github.com/alasgarliakbar/seqcomp,
     https://alasgarliakbar.github.io/seqcomp/

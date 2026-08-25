@@ -7,7 +7,9 @@
 \description{
 \code{seqcomp} provides tools for comparing probabilistic forecasters
 sequentially, following the anytime-valid framework of Choe and Ramdas
-(2024).
+(2024). For three or more forecasters, the package additionally implements
+Sequential Model Confidence Sets following Arnold, Gavrilopoulos, Schulz
+and Ziegel (2026).
 }
 \details{
 The package is built around the score difference
@@ -49,6 +51,19 @@ forecasts, see \code{\link[=eprocess_lag]{eprocess_lag()}}. For predictable time
 \code{\link[=eprocess_predictable]{eprocess_predictable()}}.
 }
 
+\section{Multiple forecasters}{
+
+For three or more candidate forecasters, use \code{\link[=compare_multiple_forecasts]{compare_multiple_forecasts()}}
+as the main entry point. It extends the pairwise workflow above to a
+Sequential Model Confidence Set (SMCS): the running set of models not yet
+shown to underperform some competitor. Lower-level access is available via
+\code{\link[=smcs_strong]{smcs_strong()}} (strong or uniformly weak null, via closure testing) and
+\code{\link[=smcs_weak]{smcs_weak()}} (time-varying weak null, via joint confidence sequences),
+with \code{\link[=vovk_wang_merge]{vovk_wang_merge()}} and \code{\link[=eprocess_betting]{eprocess_betting()}} as supporting building
+blocks, and \code{\link[=build_quantile_betting_arrays]{build_quantile_betting_arrays()}} for conditionally bounded
+scoring rules such as tick loss.
+}
+
 \section{Winkler scores}{
 
 For binary probability forecasts with unbounded base scores, use
@@ -57,10 +72,14 @@ For binary probability forecasts with unbounded base scores, use
 }
 
 \references{
+Arnold, S., Gavrilopoulos, G., Schulz, B. and Ziegel, J. (2026). Sequential
+model confidence sets. Journal of the Royal Statistical Society Series B:
+Statistical Methodology, qkag066.
+
 Choe, Y. J. and Ramdas, A. (2024). Comparing Sequential Forecasters.
 Operations Research, 72(4), 1368-1387.
 
 Howard, S. R., Ramdas, A., McAuliffe, J. and Sekhon, J. (2021).
 Time-uniform, nonparametric, nonasymptotic confidence sequences.
-The Annals of Statistics, 49(2).
+The Annals of Statistics, 49(2), 1055-1080.
 }

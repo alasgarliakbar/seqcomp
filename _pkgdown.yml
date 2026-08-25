@@ -8,9 +8,17 @@ home:
   description: Anytime-valid sequential comparison of probabilistic forecasters
 
 reference:
-  - title: Main workflow
+  - title: Main workflows
     contents:
       - compare_forecasts
+      - compare_multiple_forecasts
+
+  - title: Sequential Model Confidence Sets (SMCS)
+    contents:
+      - smcs_strong
+      - smcs_weak
+      - vovk_wang_merge
+      - build_quantile_betting_arrays
 
   - title: Confidence sequences
     contents:
@@ -21,6 +29,8 @@ reference:
   - title: E-processes
     contents:
       - eprocess
+      - eprocess_betting
+      - lambda_betting_quantile
       - eprocess_lag
       - eprocess_predictable
       - eprocess_rejections

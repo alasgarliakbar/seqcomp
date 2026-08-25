@@ -160,7 +160,7 @@ test_that("ps_boundary returns finite, positive, non-decreasing values", {
   expect_true(all(diff(u_ps) >= 0))
 })
 
-test_that("hardcoded CR23 formula matches the expected value at v=10", {
+test_that("hardcoded CR24 EC.27 formula matches the expected value at v=10", {
   hc_10 <- seqcomp:::cs_boundary_cr23_hardcoded(10)
   expect_lt(abs(hc_10 - 43.057), 0.01)
 })

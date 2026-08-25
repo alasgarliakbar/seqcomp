@@ -19,7 +19,11 @@ probabilistic forecasters, implementing the framework of Choe and Ramdas
 categorical outcomes, the package constructs confidence sequences and
 e-processes for the running mean score difference that are valid
 simultaneously at every point in time, without requiring a pre-specified
-sample size or adjustment for repeated monitoring.
+sample size or adjustment for repeated monitoring. For three or more
+forecasters, `seqcomp` also implements Sequential Model Confidence Sets
+(Arnold, Gavrilopoulos, Schulz and Ziegel, 2026), which extend this
+guarantee to a running subset of models that have not yet been shown to
+underperform.
 
 The package provides:
 
@@ -35,6 +39,9 @@ The package provides:
   binary scoring rules.
 - Lag-handling utilities for multi-step-ahead forecast evaluation via
   stream splitting.
+- Sequential Model Confidence Sets (SMCS) for evaluating three or more
+  forecasters simultaneously, using closure-principle and
+  joint-confidence- sequence constructions.
 - Predictable-bounds tools for settings where score differences are not
   globally bounded in advance.
 
@@ -145,6 +152,28 @@ cs  <- cs_bernstein(scores_p, scores_q, alpha = 0.05, c = 2)
 ep  <- eprocess(scores_p, scores_q, alpha = 0.05, c = 2)
 ```
 
+## Comparing more than two forecasters
+
+For three or more candidate forecasters, use
+`compare_multiple_forecasts()`, which extends the same anytime-valid
+guarantees to a Sequential Model Confidence Set (SMCS):
+
+``` r
+out <- compare_multiple_forecasts(
+  forecasts    = cbind(p1, p2, p3),
+  outcomes     = y,
+  scoring_rule = "brier"
+)
+
+tail(out$smcs_strong)
+```
+
+See [the SMCS
+vignette](https://alasgarliakbar.github.io/seqcomp/articles/smcs.html)
+for the strong and weak notions of superiority, and the closed-testing
+multiplicity correction. Or, access it locally via
+`vignette("smcs", package = "seqcomp")`.
+
 ## Background
 
 The statistical methods in `seqcomp` are based on:
@@ -155,6 +184,8 @@ The statistical methods in `seqcomp` are based on:
   Shafer, 2023).
 - Sequential forecaster comparison under the weak null hypothesis (Choe
   and Ramdas, 2024).
+- Sequential model confidence sets for multi-model comparison (Arnold,
+  Gavrilopoulos, Schulz and Ziegel, 2026).
 
 The package was developed as part of a bachelor’s thesis at the Vienna
 University of Economics and Business (WU Vienna).
@@ -170,13 +201,19 @@ citation("seqcomp")
 
 ## References
 
+Arnold, S., Gavrilopoulos, G., Schulz, B. and Ziegel, J. (2026).
+Sequential model confidence sets. *Journal of the Royal Statistical
+Society Series B: Statistical Methodology*, qkag066.
+<https://doi.org/10.1093/jrsssb/qkag066>
+
 Choe, Y. J. and Ramdas, A. (2024). Comparing Sequential Forecasters.
 *Operations Research*, 72(4), 1368–1387.
 <https://doi.org/10.1287/opre.2021.0792>
 
 Howard, S. R., Ramdas, A., McAuliffe, J. and Sekhon, J. (2021).
 Time-uniform, nonparametric, nonasymptotic confidence sequences. *The
-Annals of Statistics*, 49(2). <https://doi.org/10.1214/20-AOS1991>
+Annals of Statistics*, 49(2), 1055–1080.
+<https://doi.org/10.1214/20-AOS1991>
 
 Howard, S. R., Ramdas, A., McAuliffe, J. and Sekhon, J. (2020).
 Time-uniform Chernoff bounds via nonnegative supermartingales.
@@ -188,5 +225,5 @@ statistics and safe anytime-valid inference. *Statistical Science*,
 
 Waudby-Smith, I., Arbour, D., Sinha, R., Kennedy, E. H. and Ramdas, A.
 (2024). Time-uniform central limit theory and asymptotic confidence
-sequences. *The Annals of Statistics*, 52(6).
+sequences. *The Annals of Statistics*, 52(6), 2613–2640.
 <https://doi.org/10.1214/24-AOS2408>

@@ -6,7 +6,7 @@
 # confidence_sequences.R, etests.R, and all downstream modules.
 #
 # All formulae are referenced to their source:
-#   CR23  Choe & Ramdas (2023), Operations Research 72(4), 1368-1387
+#   CR24  Choe & Ramdas (2024), Operations Research 72(4), 1368-1387
 #   H21   Howard, Ramdas, McAuliffe & Sekhon (2021), Ann. Statist. 49(2)
 #
 # Dependencies: lamW (Lambert W function)
@@ -42,7 +42,7 @@
 #' formula of Howard et al. (2021), Proposition 3 (paper-exact).
 #'
 #' @param v_opt  Numeric > 0. Intrinsic time at which the boundary is tightest.
-#'               Recommended default from CR23: 10.
+#'               Recommended default from CR24: 10.
 #' @param alpha  Numeric in (0,1). Significance level (one-sided).
 #'               For a two-sided boundary at level alpha, pass alpha/2 here.
 #'
@@ -98,7 +98,7 @@ rho_from_vopt_python <- function(v_opt = 10, alpha_opt = 0.025) {
 #
 # Used for: Theorem 1 (Hoeffding CS), evaluated at v = t.
 #
-# Source: H21 Equation (3.7) / Proposition S1; CR23 Section 4.3.3.
+# Source: H21 Equation (3.7) / Proposition S1; CR24 Section 4.3.3.
 #
 # Formula:
 #   u_CM(v; rho, alpha) = sqrt((v + rho) * log((v + rho) / (alpha^2 * rho)))
@@ -106,7 +106,7 @@ rho_from_vopt_python <- function(v_opt = 10, alpha_opt = 0.025) {
 # Notes:
 #   - alpha here is the ONE-SIDED alpha (pass alpha/2 for a two-sided CS).
 #   - The scale c is implicit: the formula assumes the process has been scaled
-#     so that deviations are 1-sub-Gaussian. In practice for CR23 Theorem 1
+#     so that deviations are 1-sub-Gaussian. In practice for CR24 Theorem 1
 #     with |delta_i| <= c, the intrinsic time is v = c^2 * t. See Section 4.3.
 #   - The formula is valid at v = 0: (0 + rho)*log(rho/(alpha^2*rho)) =
 #     rho*log(1/alpha^2) > 0. No guard needed.
@@ -139,7 +139,7 @@ cm_boundary <- function(v, alpha, rho) {
 #
 # Used for: Theorem 2 (EB CS) boundary; Theorem 3 e-process value.
 #
-# Source: H21 Proposition S5; CR23 Proposition 3 / Appendix B.1.
+# Source: H21 Proposition S5; CR24 Proposition EC.3 / EC.2.1
 #
 # The function m(s, v) serves dual purpose:
 #   (a) E-process value:    E_t^mix = m(S_t, V_hat_t)
@@ -180,7 +180,7 @@ cm_boundary <- function(v, alpha, rho) {
 #' @param rho  Numeric > 0. Tuning parameter from rho_from_vopt().
 #' @param c    Numeric > 0. Sub-exponential scale. For Theorems 2&3 with
 #'             |delta_i| <= c/2, use c = hi - lo (e.g. c=2 for scores in
-#'             `[-1,1]`). For Proposition 4 Winkler scores, use c = 2.
+#'             `[-1,1]`). For Proposition EC.4 Winkler scores, use c = 2.
 #'
 #' @return Numeric. Value of m(s, v). Used directly as E_t^mix when
 #'         s = S_t and v = V_hat_t. Used inside ge_boundary() for root finding.
@@ -320,10 +320,10 @@ ge_boundary <- function(v, alpha, rho, c, s_lo = -10, s_hi = 500) {
 # =============================================================================
 #
 # Used for: Alternative to CM/GE for both Theorems 1 and 2.
-#           NOT the recommended primary boundary (CM/GE are tighter in CR23).
-#           Included for completeness and for cross-checking CR23 Table results.
+#           NOT the recommended primary boundary (CM/GE are tighter in CR24).
+#           Included for completeness and for cross-checking CR24 Table results.
 #
-# Source: H21 Theorem 1 / Equation (3.3); CR23 Section 4.3.2.
+# Source: H21 Theorem 1 / Equation (3.3); CR24 Section 4.3.2.
 #
 # Formula (scalar, l0 = 1):
 #   S_alpha(v) = k1 * sqrt(v * L(v)) + c * k2 * L(v)
@@ -336,7 +336,7 @@ ge_boundary <- function(v, alpha, rho, c, s_lo = -10, s_hi = 500) {
 # The inner argument of the outer log is eta*(v vee m)/m >= eta > 1,
 # so log(eta*(v vee m)/m) >= log(eta) > 0, and log(log(.)) is finite.
 #
-# Recommended defaults CR23: s = 1.4, eta = 2, v_opt (= m) = 10.
+# Recommended defaults CR24: s = 1.4, eta = 2, v_opt (= m) = 10.
 #
 # The Riemann zeta function at non-integer arguments requires an external
 # package. We use the 'VGAM' package, or fall back to a precomputed value
@@ -377,7 +377,7 @@ ge_boundary <- function(v, alpha, rho, c, s_lo = -10, s_hi = 500) {
 #' Polynomial stitched (PS) boundary
 #'
 #' Alternative boundary for both Theorem 1 and Theorem 2 constructions,
-#' included for completeness and for cross-checking CR23 Table results.
+#' included for completeness and for cross-checking CR24 Table results.
 #'
 #' @param v      Numeric vector >= 0. Intrinsic time values.
 #' @param alpha  Numeric in (0,1). ONE-SIDED significance level.
@@ -391,7 +391,7 @@ ge_boundary <- function(v, alpha, rho, c, s_lo = -10, s_hi = 500) {
 #'
 #' @details
 #' This is **not** the recommended primary boundary: the CM/GE mixture
-#' boundaries (`cm_boundary()`, `ge_boundary()`) are tighter in CR23 and are
+#' boundaries (`cm_boundary()`, `ge_boundary()`) are tighter in CR24 and are
 #' used by default throughout `seqcomp`. Use `ps_boundary()` only when you
 #' specifically need the polynomial-stitched construction.
 #'
@@ -417,9 +417,9 @@ ps_boundary <- function(v, alpha, v_opt = 10, c = 1, s = 1.4, eta = 2) {
 }
 
 
-#' Hardcoded 95% Empirical Bernstein boundary from CR23
+#' Hardcoded 95% Empirical Bernstein boundary from CR24
 #'
-#' Equation provided directly in Choe & Ramdas (2023) as an example.
+#' Equation provided directly in Choe & Ramdas (2024), EC.2.2 as an example.
 #' Valid only for alpha = 0.05, c = 1. For other alpha, use ps_boundary()
 #' or ge_boundary().
 #'
@@ -454,7 +454,7 @@ cs_boundary_cr23_hardcoded <- function(v) {
 #'   For lag = 1 (standard case):
 #'     gamma_t = (1/(t-1)) * sum_{i=1}^{t-1} delta_i,  t >= 2
 #'     gamma_1 = 0
-#'   This matches both the paper default CR23 and the comparecast convention.
+#'   This matches both the paper default CR24 and the comparecast convention.
 #'
 #' @keywords internal
 #' @noRd
@@ -502,7 +502,7 @@ intrinsic_time <- function(xs, gammas = NULL, floor = TRUE) {
 #'
 #' psi_{E,c}(lambda) = (-log(1 - c*lambda) - c*lambda) / c^2
 #'
-#' Source: CR23 Theorem 3 formula.
+#' Source: CR24 Theorem 3 formula.
 #'
 #' @param lambda Numeric. Must satisfy 0 <= lambda < 1/c.
 #' @param c      Numeric > 0. Sub-exponential scale.
@@ -599,7 +599,7 @@ log_ge_mixture_from_sv <- function(S_t, V_t, rho, c) {
   mapply(
     function(s, v) {
       val <- ge_mixture(s, v, rho, c)
-      if (val <= 0 || is.nan(val)) return(log(.Machine$double.eps))
+      if (val <= 0 || is.nan(val) || is.infinite(val)) return(log(.Machine$double.eps))
       log(val)
     },
     s = S_t,
@@ -701,6 +701,25 @@ score_diff_scales <- function(lo, hi) {
 .safe_log <- function(x, eps = 1e-16) log(pmax(x, eps))
 
 
+#' Slice global or pair-specific parameters for SMCS loops
+#'
+#' @keywords internal
+#' @noRd
+.slice_param <- function(param, Tt, i, j) {
+  if (is.null(param)) return(NULL)
+
+  # 3D Array: T x m x m (e.g., dynamic betting fractions)
+  if (is.array(param) && length(dim(param)) == 3) {
+    return(param[, i, j])
+  }
+  # 2D Matrix: m x m (e.g., fixed conservative bounds per pair)
+  if (is.matrix(param)) {
+    return(param[i, j])
+  }
+  # Scalar or T-length vector (e.g., global c = 2)
+  return(param)
+}
+
 # =============================================================================
 # 8. NUMERICAL VERIFICATION: rho formula cross-check
 # =============================================================================
@@ -747,6 +766,8 @@ verify_rho_formulas <- function(
   }
   invisible(out)
 }
+
+
 
 
 
