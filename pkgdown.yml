@@ -1,0 +1,10 @@
+pandoc: 3.8.3
+pkgdown: 2.2.1
+pkgdown_sha: ~
+articles:
+  seqcomp: seqcomp.html
+  smcs: smcs.html
+last_built: 2026-08-25T03:07Z
+urls:
+  reference: https://alasgarliakbar.github.io/seqcomp/reference
+  article: https://alasgarliakbar.github.io/seqcomp/articles
