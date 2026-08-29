@@ -221,6 +221,10 @@ eprocess_betting <- function(scores1, scores2, c_t, lambda_t = NULL, clip_max = 
 
   if (is.null(lambda_t)) {
     lambda_t <- 1 / (2 * c_t)
+  } else {
+    if (length(lambda_t) == 1L) {
+      lambda_t <- rep(lambda_t, t_len)
+    }
   }
   stopifnot(length(lambda_t) == t_len)
 
