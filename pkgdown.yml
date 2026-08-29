@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   seqcomp: seqcomp.html
   smcs: smcs.html
-last_built: 2026-08-25T03:07Z
+last_built: 2026-08-29T22:43Z
 urls:
   reference: https://alasgarliakbar.github.io/seqcomp/reference
   article: https://alasgarliakbar.github.io/seqcomp/articles
